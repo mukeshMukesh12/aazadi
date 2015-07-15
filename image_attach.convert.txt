@@ -1,0 +1,156 @@
+<?php
+/**
+   Raphaël Droz, 2012, WTFPL
+
+   image_attach.convert.php:
+   Attempt to fixes Drupal critical bug #1226062:
+   - Converts the {image_attach} table from D6 to D7
+   - Switch from image_node to Image or File field
+
+   * iid is mapped to the corresponding image_node
+   * image_node is mapped to the corresponding File
+   * file is added to a field of the node (nid in {image_attach})
+   * node is saved
+   * record is removed from {image_attach}
+
+   * Files order is preserved
+   * Field's cardinality is checked
+   * The node's destination field can be autodetected (image or generic_file)
+   * The node's destination field can be fixed on a per-bundle basis using $newfields
+
+   usage: backup your DB then run:
+   $ drush scr image_attach.convert.php
+
+   **/
+
+// customize here: "bundle" => "field_name"
+// or comment for autodetection
+global $newfields, $nid;
+$newfields = array(
+  'report' => 'node_image',
+  'announcement' => 'node_image',
+);
+
+$res = db_query('SELECT DISTINCT nid FROM {image_attach}');
+
+foreach($res as $obj) {
+  $nid = $obj->nid;
+  $node = node_load($nid);
+  if(!$node) {
+    drush_log("can't convert node $nid: missing", 'warning');
+    continue;
+  }
+
+  if(!($destfield = _c_check_field($node->type))) continue;
+  $fieldsettings = field_info_field($destfield);
+  $card  = intval($fieldsettings["cardinality"]);
+
+  $res2 = db_query('SELECT iid, weight FROM {image_attach}'
+           . ' WHERE nid = ' . $nid
+           . ' ORDER BY weight DESC');
+
+  // stores iid alone + fid alone + couple (iid, weight)
+  $ok = array();
+
+  foreach($res2 as $oimg) {
+    if( ($file = _get_legacy_image($oimg, $nid, $ok)) ) {
+      if(!isset($file->display))
+    $file->display = 1; // TODO ?
+      $node->{$destfield}[LANGUAGE_NONE][] = (array)$file;
+    }
+  }
+
+  if(!$ok) continue;
+  // -1 means unlimited
+  if(count($ok['i']) > $card && $card >= 0) {
+    drush_log("can't convert node $nid: $destfield cardinality of $card < " . count($ok['i']), 'warning');
+    continue;
+  }
+  
+  drush_log("ok: $nid :  " .
+        "iid: " . implode(' ', $ok['i']) . ' => ' .
+        "fid: " . implode(' ', $ok['f']),  'status');
+
+
+  node_save($node);
+  foreach($ok['ok'] as $v) {
+    db_query(
+      sprintf('DELETE FROM {image_attach} where nid = %d AND iid = %d AND weight = %d',
+          $nid, $v[0], $v[1]));
+  }
+}
+
+function _c_check_field($bundle) {
+  global $nid, $newfields;
+  if(!empty($newfields[$bundle])) {
+    $newfield = $newfields[$bundle];
+    $fins = field_info_instance("node", $newfield, $bundle);
+    if(!$fins) {
+      drush_log("can't find " . $newfield . " in {$bundle}", 'warning');
+      return FALSE;
+    }
+    return $newfield;
+  }
+
+  // guess a destination field
+  $fields = field_read_instances(array("bundle" => $bundle));
+  $match = array();
+
+  foreach($fields as $field) {
+    if($field['widget']['module'] == 'image' ||
+       $field['widget']['type'] == 'file_generic')
+      $match[] = $field['field_name'];
+  }
+  if(! $match) {
+    drush_log("can't find a destination image field for nid $nid ($bundle)", 'warning');
+    return FALSE;
+  }
+  if(count($match) > 1) {
+    drush_log("more than 1 possible destination field for nid $nid", 'warning');
+    return FALSE;
+  }
+  return $match[0];
+}
+
+/**
+   warn !!
+   every iid in {image_attach} is a reference to the nid
+   of an image_node.
+   This image_node should have been migrated thus having
+   already a valid fid (pointing in {file_managed}
+   That's what we are looking for.
+**/
+function _get_legacy_image($oimg, $nid, &$ok) {
+  /* never ever do this the following, you may grab a wrong file !
+     $file = file_load($oimg->iid); if($file) goto ok;*/
+
+  // fallback on the image_node principles
+  $image_node = node_load($oimg->iid);
+  if($image_node) {
+    if($image_node->type == 'image' &&
+       count($image_node->node_image[LANGUAGE_NONE]) == 1 &&
+       ($file = file_load($image_node->node_image[LANGUAGE_NONE][0]['fid'])))
+      goto ok;
+    
+    drush_log("$nid/{$oimg->iid} problematic image_node", 'warning');
+    return FALSE;
+  }
+
+  $b = db_query("SELECT * FROM files where fid = " . $oimg->iid)->fetch();
+  if(!$b)
+    drush_log("$nid/{$oimg->iid} not even an entry in the files table", 'warning');
+
+  if(in_array($b->filename, array('_original', 'preview', 'thumbnail')) &&
+     drush_get_context('DRUSH_VERBOSE'))
+    drush_log("$nid/{$oimg->iid} thumbnail => skipped", 'status');
+  // db_query("SELECT * FROM image where fid = " . $oimg->iid)->fetch();
+  // drush_log("$nid/{$oimg->iid} leftover in the files table: $b->filename", 'status');
+  return FALSE;
+
+ok:
+  $ok["i"][] = $oimg->iid;
+  $ok["f"][] = $file->fid;
+  $ok["ok"][] = array($oimg->iid, $oimg->weight);
+  return $file;
+}
+?>

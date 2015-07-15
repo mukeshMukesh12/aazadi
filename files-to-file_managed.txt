@@ -1,0 +1,67 @@
+<?php
+/*
+  Raphaël Droz, 2012, beer-ware || $ 22
+
+  Move D6 image-nodes from {files} to plain D7 file_managed files.
+  According to how they were used, you're still free to use the
+  {image} or {image_attach} schemas for whatever other migration
+  you need.
+  [ but this script delete image-{node}s ]
+
+  * "sites/default/files/" is hard-coded, of course: refer to
+  system_update_7061() for some code about this.
+
+
+  Never forget: Drupal has no user, only docile hostages.
+
+  quick D6 schemas structure cheatsheet:
+
+  * {files}: like file_managed, but uri/filepath and filename differs
+
+  * {image}:
+    nid: Primary Key: The {node}.nid of the image node.
+    fid: Index: The {files}.fid of the image file.
+    image_size: Primary Key: The {files}.filename of the image file. For image module this indicates the file size.
+
+  * {image_attach}:
+    nid: The {node}.nid of the node.
+    iid: The {image}.nid of the image file.
+    weight: The display order of attached images.
+*/
+
+// This would grab "_original" files not already inserted into file_managed
+// (what system_update_7061() does for those also in {upload}).
+//  SELECT fid, filepath FROM {files} WHERE fid NOT IN (SELECT fid FROM {file_managed}) \
+//   AND filename NOT IN ("preview","thumbnail")
+
+
+// This request also grab additional fields:
+// In D6 images were image-nodes, we also grab the corresponding image-node's title
+// and replace the "_original" {files} file name by the title.
+$result = db_query('SELECT f.fid, filepath, n.nid, n.title '.
+		   ' FROM {files} f LEFT JOIN image i ON f.fid = i.fid LEFT JOIN node n ON i.nid = n.nid WHERE '.
+		   ' f.fid NOT IN (SELECT fid FROM {file_managed}) ' .
+		   ' AND ' .
+		   ' filename NOT IN (:a, :b)',
+		  array("a" => "preview", "b" => "thumbnail"));
+
+
+// see also system_update_7061();
+foreach ($result as $record) {
+  $newpath = str_replace("sites/default/files/", "public://", $record->filepath);
+
+  try {
+    $res = db_query('INSERT INTO {file_managed} ( SELECT '.
+		    ' fid, uid, :title, :path, filemime, filesize, status, timestamp '.
+		    ' FROM {files} WHERE fid = :f ) ',
+		    array("title" => $record->title,
+			  "path" => $newpath,
+			  "f" => $record->fid));
+    $query = db_delete('files')->condition('fid', $record->fid, '=')->execute();
+    $query = db_delete('node')->condition('nid', $record->nid, '=')->execute();
+    printf("{$record->fid}\tok\n");
+  } catch(PDOException $e) {
+    // {file_managed}.uri is UNIQUE: expect some failures here.
+    printf("{$record->fid}\t%s\n", $e->getMessage());
+  }
+}
