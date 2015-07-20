@@ -6,7 +6,8 @@ engine = phptemplate
 
 ; style.css is loades from template.php so i have disabled in info file
 ; because it's lodet at wrong time see api doc
-
+; adding js file
+script[]='js/custom.js'
 stylesheets[print][] = print.css
 regions[search-social] = Search Social Block
 regions[sidebar_first] = Sidebar Left

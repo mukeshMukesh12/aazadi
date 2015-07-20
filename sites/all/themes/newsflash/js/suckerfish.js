@@ -1,4 +1,4 @@
-sfHover = function() {
+/*sfHover = function() {
   var sfEls = document.getElementById("suckerfishmenu").getElementsByTagName("LI");
     for (var i = 0; i < sfEls.length; i++) {
     sfEls[i].onmouseover = function() {
@@ -9,4 +9,4 @@ sfHover = function() {
     }
   }
 }
-if (window.attachEvent) window.attachEvent("onload", sfHover);
+if (window.attachEvent) window.attachEvent("onload", sfHover);*/

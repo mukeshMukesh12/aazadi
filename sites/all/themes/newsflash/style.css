@@ -1,9 +1,9 @@
 /* NewsFlash 2.x css by Alyx Vance */
 
 body {
-  margin: 0;
+  max-width: 1024px;
+  margin: 0 auto;
   padding: 0;
-  min-width: 750px;
   padding-top: 20px;
   padding-bottom: 20px;
   font-size: 82%;
@@ -113,11 +113,11 @@ rt {
 }
 
 #page {
-  min-width:750px;
+  /*min-width:750px;
   margin: 0 auto;
   width: 95%;
   background:#fff;
-  padding: 3px;
+  padding: 3px;*/
 }
 
 #header, #content {
@@ -282,7 +282,8 @@ a:hover {
 }
 
 #main .block h2.title {
-  font-size: 125%;
+  font-size: 21px;
+  color: #af3636;
 }
 
 /* elements */
@@ -739,7 +740,7 @@ div.error {
 }
 
 #header .block {
-  text-align: center;
+  text-align: left;
 }
 
 /* footer */
@@ -1119,4 +1120,234 @@ ul.action-links a {
 }
 .view-articles-livelihood .field-item:first-child img { 
   display: block;
+}
+/****css for  header right block responsive****/
+#rightbanner .block .content div img{
+  width:30px;
+}
+#rightbanner .block .content div>a:hover{
+  text-decoration: none;
+}
+
+#rightbanner .block-block .content {
+  margin-top: 5px;
+}
+#rightbanner .block .content #fb-link,#rightbanner .block .content #twitter-link,#rightbanner .block .content #rss-link{
+    height: 20px;
+    padding-bottom: 8px;
+    padding-top: 3px;
+    width: 200px;
+}
+
+#rightbanner .block .content #text-link>b{
+  font-size: 16px;
+}
+#rightbanner .block .content div a>br{
+  display: none;
+}
+#rightbanner .block .content div #img,#rightbanner .block .content div #text-link{
+  float: left;
+}
+#rightbanner .block .content div{
+  display: inline-block;
+}
+#rightbanner .block .content div #img{
+  width: 20%;
+  text-align: center;
+}
+#rightbanner .block .content div #text-link{
+  width: 80%;
+  color: #336299;
+  background: #fff;
+  padding-top: 4px;
+  height: 25px;
+  position: relative;
+  text-align: center;
+  bottom:2px;
+}
+#header{
+  width:100%;
+  background: #fff url('');
+}
+#header #logo-title{
+  width:79%;
+  margin:0;
+}
+#header #logo-title a>img{
+  width:100%;
+}
+
+#header #rightbanner{
+  width:19%;
+}
+#header #logo-title,#header #rightbanner{
+  float: left;
+}
+#header .region .block h2{
+  display: none;
+}
+#header #rightbanner .content #menu{
+  display: none;
+}
+#rightbanner .block .content p {
+    margin-bottom: -4px;
+    margin-top: -8px;
+}
+#rightbanner .form-item, #rightbanner .form-actions{
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+#rightbanner .form-text {
+    border-radius: 0;
+    width: 115px;
+    border:1px solid #37446e;
+    height: 28px;
+}
+#rightbanner .form-submit{
+  border-radius: 0;
+  height: 31px;
+  border: 1px solid #37446e;
+}
+#rightbanner .container-inline {
+    left: 9px;
+    position: relative;
+} 
+#header #suckerfishmenu .menu li{
+  font-size: 16px;
+}
+.front h2{
+  font-size: 21px;
+}
+.front .panels-flexible-column-2-main .views-slideshow-cycle-main-frame-row-item span.field-content img{
+  float: left;
+  margin:5px 10px 5px 0;
+}
+.front .panels-flexible-column-2-main .views-slideshow-cycle-main-frame-row{
+  background: #efefef;
+  padding:2px;
+}
+.front .panels-flexible-column-2-main .views-slideshow-controls-bottom .views-slideshow-controls-text.views_slideshow_controls_text{
+  width: 100%;
+}
+.front .panels-flexible-column-2-main .views-slideshow-controls-bottom .views-slideshow-controls-text.views_slideshow_controls_text span{
+  width: 33%;
+  float: left;
+  font-size: 16px;
+  font-weight: bold;
+}
+.front .panels-flexible-column-2-main .views-slideshow-controls-bottom .views-slideshow-controls-text.views_slideshow_controls_text span:last-child>a{
+  float: right;
+}
+.front .panels-flexible-column-2-main .views-slideshow-controls-bottom .views-slideshow-controls-text.views_slideshow_controls_text span:nth-of-type(2){
+  text-align: center;
+}
+.front .panels-flexible-column-2-main .views-field-field-image-article .views-content-field-image-article{
+  width: 16%;
+  float: left;
+  margin-top: 10px;
+}
+.front .panels-flexible-column-2-main .views-field-field-image-article .views-content-field-image-article img{
+  width: 58px;
+  height: 55px;
+}
+.front .panels-flexible-column-2-main .views-field-field-image-article .views-content-field-image-article img:nth-of-type(2){
+  display: none;
+}
+
+.front .panels-flexible-column-2-main .pane-content div ol{
+  font-size: 16px;
+  line-height: 25px;
+}
+.front .panels-flexible-column-2-main .pane-content div ol .views-row-even div{
+   background: #efefef;
+   padding:5px;
+}
+
+.front .panels-flexible-column-2-main .panels-flexible-row.panels-flexible-row-2-12.panels-flexible-row-last .block-views div ul{
+  font-size: 16px;
+  line-height: 25px;
+}
+.front .panels-flexible-column-2-main .panels-flexible-row.panels-flexible-row-2-12.panels-flexible-row-last .block-views div ul .views-row-even div{
+   background: #efefef;
+   padding:5px;
+}
+  .front .view-featurd-article-block-front-page  .views-slideshow-cycle-main-frame-row  {
+    /*width: 99% !important;
+    position: initial !important ;
+    float: left;*/
+}
+@media screen and (max-width: 999px){
+  #header #logo-title{
+    width: 100% !important;
+  }
+  #rightbanner .block .content div #text-link{
+    display: none;
+  }
+  #rightbanner .block-block{
+    width: 50% !important;
+  }
+  #rightbanner .block-search{
+    width: 50% !important;
+  }
+  #rightbanner .block-search .content #search-block-form{
+    text-align: right;
+    margin-right: 20px;
+  }
+  #rightbanner .block-block,#rightbanner .block-search{
+    float: left;
+  }
+  #header #rightbanner .content #menu img{
+   width: 40px !important;
+   cursor: pointer;
+  }
+  #header #rightbanner .content #menu{
+  display: block;
+  margin-left: 5px;
+}
+#header #rightbanner{
+  width:100% !important;
+}
+#rightbanner .block .content #fb-link,#rightbanner .block .content #twitter-link,#rightbanner .block .content #rss-link{
+  width:30px;
+  float: right;
+}
+#header #rightbanner .region-search-social div{
+  float: left;
+}
+#rightbanner .block-search .content #search-block-form{
+  margin-right: 20px;
+  float: right;
+}
+#rightbanner .content{
+  width: 100%;
+}
+}
+@media screen and (max-width: 988px){
+  .region-suckerfish .menu li{
+    width: 100%;
+  }
+}
+@media screen and (max-width: 399px){
+  #suckerfishmenu ul.menu li ul ul{
+    margin:0 !important;
+  }
+  #suckerfishmenu ul.menu li ul{
+    position: inherit !important;
+  }
+
+#suckerfishmenu ul.menu li li.expanded a {
+  
+}
+}
+@media screen and (max-width: 767px){
+  .front .panels-flexible-column-2-main{
+    width: 100% !important;
+  }
+  .front .panels-flexible-column-2-1{
+    width: 100% !important;
+  }
+  .front .panels-flexible-column-2-2{
+    width: 100% !important;
+  }
+
 }
