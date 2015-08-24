@@ -1,10 +1,10 @@
 /* NewsFlash 2.x css by Alyx Vance */
 
 body {
-  max-width: 1024px;
+  /*max-width: 1024px;*/
   margin: 0 auto;
   padding: 0;
-  padding-top: 20px;
+  /*padding-top: 20px;*/
   padding-bottom: 20px;
   font-size: 82%;
   font-family:  arial, verdana, sans-serif;
@@ -740,7 +740,11 @@ div.error {
 }
 
 #header .block {
-  text-align: left;
+  text-align: right;
+
+}
+#header .block:nth-child(1){
+ /* margin-top: 20px;*/
 }
 
 /* footer */
@@ -1186,8 +1190,20 @@ ul.action-links a {
 #header .region .block h2{
   display: none;
 }
-#header #rightbanner .content #menu{
+#header #rightbanner button#menu{
   display: none;
+  background: #336299;
+  border:none;
+  margin-top: 10px;
+  cursor: pointer;
+}
+#header #rightbanner button#menu span.icon-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    border-radius: 1px;
+    background: #fff;
+    margin-top: 4px;
 }
 #rightbanner .block .content p {
     margin-bottom: -4px;
@@ -1208,10 +1224,7 @@ ul.action-links a {
   height: 31px;
   border: 1px solid #37446e;
 }
-#rightbanner .container-inline {
-    left: 9px;
-    position: relative;
-} 
+
 #header #suckerfishmenu .menu li{
   font-size: 16px;
 }
@@ -1287,6 +1300,7 @@ ul.action-links a {
 .front .panels-flexible-column-2-1 .views-field.views-field-field-image-blog {
     width: 75px;
     margin-right: 5px;
+    margin-bottom: 5px;
 }
 .front .panels-flexible-column-2-1 .views-field.views-field-title {
     width: 95%;
@@ -1311,75 +1325,110 @@ ul.action-links a {
   #rightbanner .block .content div #text-link{
     display: none;
   }
-  #rightbanner .block-block{
-    width: 50% !important;
+  #header .block:nth-child(1){
+
   }
-  #rightbanner .block-search{
-    width: 50% !important;
-  }
-  #rightbanner .block-search .content #search-block-form{
-    text-align: right;
-    margin-right: 20px;
-  }
-  #rightbanner .block-block,#rightbanner .block-search{
-    float: left;
-  }
-  #header #rightbanner .content #menu img{
-   width: 40px !important;
-   cursor: pointer;
-  }
-  #header #rightbanner .content #menu{
-  display: block;
-  margin-left: 5px;
-}
 #header #rightbanner{
   width:100% !important;
 }
-#rightbanner .block .content #fb-link,#rightbanner .block .content #twitter-link,#rightbanner .block .content #rss-link{
-  width:30px;
-  float: right;
-}
-#header #rightbanner .region-search-social div{
-  float: left;
-}
-#rightbanner .block-search .content #search-block-form{
-  margin-right: 20px;
-  float: right;
-}
-#rightbanner .content{
-  width: 100%;
-}
 }
 @media only screen and (min-width: 989px)and (max-width: 1023px){
-   #header #rightbanner .content #menu img{
-    display: none;
-   }
-   #rightbanner .block .content #fb-link, #rightbanner .block .content #twitter-link, #rightbanner .block .content #rss-link{
+  #header #rightbanner .region-search-social .block{
+    width: 50% !important;
     float: left;
-   }
-   #rightbanner .block .content #fb-link{
-    padding-left: 20px;
-   }
-   #header #rightbanner .region-search-social .block.block-search{
-    padding-top: 4px;
-   }
-   #header #rightbanner{
-    margin-bottom: -16px;
-   }
+  }
+ #header #rightbanner .region-search-social .block.block-block .content div{
+  float: left;
+  width: 30%;
+
+ }
+ #header #rightbanner .region-search-social .block.block-block{
+   max-width: 100px;
+   margin-left: 25px;
+  
+ }
+  #header #rightbanner .region-search-social .block.block-search{
+    position: absolute;
+    left: 48%;
+  }
+  #header #rightbanner{
+    position: relative;
+    top: 10px;
+  }
+ 
 }
 @media screen and (max-width: 988px){
+    #header #rightbanner button#menu{
+  display: block;
+  margin-left: 5px;
+}
    .region-suckerfish .menu li{
     width: 100%;
   }
    #suckerfishmenu{
     display: none;
   }
-  #header #rightbanner .region-search-social .block.block-search{
-    padding-top: 4px;
-   }
-   #header #rightbanner{
-    margin-bottom: -16px;
-   }
+   #header #rightbanner .region-search-social .block.block-block .content div{
+  float: left;
+  width: 30%;
+
+ }
+   
+}
+@media only screen and (max-width: 988px) and (min-width: 479px){
+  #header #rightbanner .region-search-social .block{
+    width: 50% !important;
+    float: left;
+    text-align: right;
+  }
+
+ #header #rightbanner .region-search-social .block.block-search{
+   position: absolute;
+    left: 47%;
+    margin-top: 5px;
+  }
+   #header #rightbanner .region-search-social .block.block-block{
+   max-width: 100px;
+   position: absolute;
+   left: 35%;
+   z-index: 9999;
+   
+  
+ }
+ #header #rightbanner{
+  position: relative;
+ }
+ #header #rightbanner .block{
+    position: absolute;
+    top: 0;
+  }
+}
+@media screen and (max-width: 478px){
+  .front .panels-flexible-column-2-main .views-field-field-image-article .views-content-field-image-article img{
+    width: 39px;
+    height: 39px;
+  }
+   #header #rightbanner .region-search-social .block{
+    width: 100% !important;
+  }
+  #header #rightbanner .region-search-social .block.block-block{
+   max-width: 100px;
+   position: relative;
+   left: 70%;
+   z-index: 9999;
+   top: -29px;
+   
+  
+ }
+ #header #rightbanner .region-search-social .block.block-search{
+    left: 0;
+    position: relative;
+    top: 10px;
+  }
+  #rightbanner .container-inline{
+    margin-right: 9px;
+  }
+
 }
 @media screen and (max-width: 399px){
   #suckerfishmenu ul.menu li ul ul{
@@ -1397,27 +1446,14 @@ ul.action-links a {
   .front .panels-flexible-column-2-2{
     width: 100% !important;
   }
-   #rightbanner .block-block{
-    width: 100% !important;
-  }
-  #rightbanner .block-search{
-    width: 100% !important;
-    text-align: center;
-  }
+
  .front .views-field.views-field-body{
   max-width: 259px;
  }
- #rightbanner .block .content #fb-link{
-  padding-right: 5px;
- }
- #header #rightbanner .content #menu img{
+ 
+ #header #rightbanner button#menu img{
   z-index: 9999;
  }
-  #header #rightbanner .region-search-social .block.block-search{
-    padding-top: 0 !important;
-    margin-top: -12px
-;  }
-
 }
 @media only screen and (min-width: 768px) and (max-width: 911px){
   .front .panels-flexible-column-2-main{
@@ -1445,5 +1481,25 @@ ul.action-links a {
   position: absolute;
   top:180px;
   left: 264px;
+}
+}
+.views-slideshow-cycle-main-frame.views_slideshow_cycle_teaser_section{
+  width: 100% !important;
+}
+.views-slideshow-cycle-main-frame-row.views_slideshow_cycle_slide.views_slideshow_slide.views-row-odd,.views-slideshow-cycle-main-frame-row.views_slideshow_cycle_slide.views_slideshow_slide.views-row-even{
+  width: 99% !important;
+  float: left !important;
+
+}
+@media screen and (min-width: 1136px) and (max-width: 1600px){
+ #header #rightbanner{
+  position: relative;
+  top: 7px;
+ }
+
+}
+@media only screen and (min-width: 1024px) and (max-width: 1600px){
+.front .block-views .view-content .views-row .views-field-field-image-blog,.front .block-views .view-content .views-row .views-field-nothing{
+  clear:both;
 }
 }

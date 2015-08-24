@@ -22,6 +22,11 @@
       <!-- search and social link -->
       <?php if ($page['search-social']): ?>
         <div id="rightbanner"> 
+          <button class="navbar-toggle collapsed" type="button" id="menu">
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+          </button>
           <?php print render($page['search-social']); ?>
         </div>
       <?php endif; ?>
