@@ -1,5 +1,12 @@
 /* NewsFlash 2.x css by Alyx Vance */
+@font-face {
+    font-family: myFont;
+    src: url(fonts/Kruti_Dev_070_Wide.ttf);
+}
 
+#main .block h2.title{
+  font-family: myFont !important;
+}
 body {
   /*max-width: 1024px;*/
   margin: 0 auto;
@@ -7,9 +14,10 @@ body {
   /*padding-top: 20px;*/
   padding-bottom: 20px;
   font-size: 82%;
-  font-family:  arial, verdana, sans-serif;
+ /* font-family:  arial, verdana, sans-serif;*/
   line-height: 130%;
   color: #000;
+  font-family: myFont;
 }
 
 /* Fallback width */
@@ -1318,7 +1326,51 @@ ul.action-links a {
   .front .panels-flexible-column.panels-flexible-column-2-1 .view-content .views-row-3  .views-field.views-field-body{
     margin-bottom: 32px;
   }
-@media screen and (max-width: 1023px){
+.not-front.sidebar-second #squeeze, .not-front.two-sidebars #squeeze, .not-front.sidebar-second #main, .not-front.two-sidebars #main {
+   margin-right: 0 !important;
+}
+.not-front.sidebar-second #middlecontainer {
+  width: 95%;
+  margin: 0 auto;
+}
+.not-front.sidebar-second #main {
+  width: 75%;
+  float: left;
+
+}
+.not-front.sidebar-second #main h3, .not-front.sidebar-second.page-nobel-prize-winners #main #branding h1.title { 
+   font-size: 25px;
+   margin: 5px 0px;
+}
+.not-front.sidebar-second #sidebar-right {
+    float: left;
+    width: 25%;
+}
+.not-front.sidebar-second #main ul li {
+  font-size: 18px;
+  line-height: 2.2;
+}
+.not-front.sidebar-second #main ul li.views-row-even {
+  background: #efefef;
+}
+.not-front.sidebar-second #sidebar-right .block .title {
+    color: #af3636 !important;
+    font-size: 21px;
+    line-height: 22px;
+    margin-bottom: 0.25em;
+}
+.not-front.sidebar-second #sidebar-right .poll .vote-form .choices, .not-front.sidebar-second #sidebar-right .views-field.views-field-body,.not-front.sidebar-second #sidebar-right .block.block-block p{
+    font-size: 16px;
+    line-height: 1.2;
+}
+#footer .block.block-block p {
+  font-size: 15px;
+}
+.not-front.sidebar-second.page-nobel-prize-winners table td {
+  font-size: 18px;
+  line-height: 1.2;
+}
+@media all and (max-width: 1023px){
   #header #logo-title{
     width: 100% !important;
   }
@@ -1332,7 +1384,7 @@ ul.action-links a {
   width:100% !important;
 }
 }
-@media only screen and (min-width: 989px)and (max-width: 1023px){
+@media all and (min-width: 989px)and (max-width: 1023px){
   #header #rightbanner .region-search-social .block{
     width: 50% !important;
     float: left;
@@ -1357,7 +1409,7 @@ ul.action-links a {
   }
  
 }
-@media screen and (max-width: 988px){
+@media all and (max-width: 988px){
     #header #rightbanner button#menu{
   display: block;
   margin-left: 5px;
@@ -1373,9 +1425,21 @@ ul.action-links a {
   width: 30%;
 
  }
-   
+ #suckerfishmenu .region-suckerfish #block-menu-secondary-menu .content .menu li .menu {
+  position: relative !important;
+  display: none;
+ }
+  #suckerfishmenu .region-suckerfish #block-menu-secondary-menu .content .menu li.expanded:hover .menu{
+    display: block;
+  }
+ #suckerfishmenu .region-suckerfish #block-menu-secondary-menu .content .menu li.expanded .menu li.expanded .menu{
+  display: none;
+ }
+ #suckerfishmenu .region-suckerfish #block-menu-secondary-menu .content .menu li.expanded .menu li.expanded:hover .menu{
+  display: block;
+ }
 }
-@media only screen and (max-width: 988px) and (min-width: 479px){
+@media all and (max-width: 988px) and (min-width: 479px){
   #header #rightbanner .region-search-social .block{
     width: 50% !important;
     float: left;
@@ -1403,7 +1467,7 @@ ul.action-links a {
     top: 0;
   }
 }
-@media screen and (max-width: 478px){
+@media all and (max-width: 478px){
   .front .panels-flexible-column-2-main .views-field-field-image-article .views-content-field-image-article img{
     width: 39px;
     height: 39px;
@@ -1430,14 +1494,14 @@ ul.action-links a {
   }
 
 }
-@media screen and (max-width: 399px){
+@media all and (max-width: 399px){
   #suckerfishmenu ul.menu li ul ul{
     margin:0 !important;
   }
 
 }
-@media screen and (max-width: 767px){
-  .front .panels-flexible-column-2-main{
+@media all and (max-width: 767px){
+  .front .panels-flexible-column-2-main, .not-front.sidebar-second #main , .not-front.sidebar-second #sidebar-right {
     width: 100% !important;
   }
   .front .panels-flexible-column-2-1{
@@ -1455,7 +1519,7 @@ ul.action-links a {
   z-index: 9999;
  }
 }
-@media only screen and (min-width: 768px) and (max-width: 911px){
+@media all and (min-width: 768px) and (max-width: 911px){
   .front .panels-flexible-column-2-main{
     width: 70% !important;
     position: relative;
@@ -1482,6 +1546,9 @@ ul.action-links a {
   top:180px;
   left: 264px;
 }
+.front .panels-flexible-column-2-2 #block-block-10 {
+  width: 31% !important;
+}
 }
 .views-slideshow-cycle-main-frame.views_slideshow_cycle_teaser_section{
   width: 100% !important;
@@ -1491,15 +1558,43 @@ ul.action-links a {
   float: left !important;
 
 }
-@media screen and (min-width: 1136px) and (max-width: 1600px){
+@media all and (min-width: 1136px) and (max-width: 1600px){
  #header #rightbanner{
   position: relative;
   top: 7px;
  }
 
 }
-@media only screen and (min-width: 1024px) and (max-width: 1600px){
+
 .front .block-views .view-content .views-row .views-field-field-image-blog,.front .block-views .view-content .views-row .views-field-nothing{
   clear:both;
 }
+@media all and (max-width: 374px){
+  .views-slideshow-cycle-main-frame.views_slideshow_cycle_teaser_section{
+    height: 587px !important;
+  }
 }
+@media all and (max-width: 479px) and (min-width: 375px){
+  .views-slideshow-cycle-main-frame.views_slideshow_cycle_teaser_section{
+    height: 536px !important;
+  }
+}
+@media all and (max-width:767px) and (min-width:480px){
+  .views-slideshow-cycle-main-frame.views_slideshow_cycle_teaser_section{
+    height: 413px !important;
+  }
+}
+ #suckerfishmenu #block-menu-secondary-menu .menu .expanded .nolink {
+  background: #2e4a6b url("/aazadi/sites/all/themes/newsflash/images/blue/MenuDiv.png") repeat-y scroll 100% 0;
+    color: #fff;
+    display: block;
+    font-size: 95%;
+    font-weight: normal;
+    margin: 0;
+    padding: 0 14px;
+    text-decoration: none;
+  }
+  #suckerfishmenu #block-menu-secondary-menu .menu .expanded .menu .nolink {
+    background: #336299 url("/sites/all/themes/newsflash/images/menu_arrow.png") no-repeat scroll 100% 50%;
+    border-bottom: 1px solid #fff;
+  }
